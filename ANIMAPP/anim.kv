@@ -1,0 +1,725 @@
+<SmoothButton@Button>
+		background_color: 0,0,0,0
+		background_normal: ''
+		canvas.before:
+				Color:
+						rgba: (.149,.05,.05,.51)  
+				RoundedRectangle:
+						pos: self.pos
+						size: self.size
+						radius: [5,50,5,50]
+									
+									
+<StrokeButton@Button>
+		background_color: 0,0,0,0
+		background_normal: ''
+		canvas.before:
+				Color:
+						rgba: (1,1,1,1)  
+				Line:
+						rounded_rectangle: (self.pos[0],self.pos[1], self.size[0], self.size[1], 0,0,25,25)	
+						width: 1.2
+						
+<FancyLabel@Label>
+        size_hint: 0.4, 0.1
+		canvas.before:
+				Color:
+						rgba: (.149,.05,.05,.51)  
+				Line:
+						rounded_rectangle: (self.pos[0],self.pos[1], self.size[0], self.size[1], 25,25,25,25)
+							
+						width: 1.2
+
+<TheSlide@Slider>
+        min: 0
+        max: 10
+        step: 1
+        orientation: 'vertical'
+        size_hint: 	.1, .5
+        value_track: True,  
+        value_track_color: [.149,.05,.05,.51]
+        cursor_image: ""
+        cursor_size: 0,0		
+
+<RootWidget@ProgressBar>:
+        min: 0
+        max: 100
+        value: 5
+        canvas:
+                BorderImage:
+                        border: (12, 12, 12, 12)
+                        pos: self.x, self.center_y - 12
+                        size: self.width, 24
+                        source: 'white.png'
+                BorderImage:
+                        border: [int(min(self.width * (self.value / float(self.max)) if self.max else 0, 12))] * 4
+                        pos: self.x, self.center_y - 12
+                        size: self.width * (self.value / float(self.max)) if self.max else 0, 24
+                        source: 'brown.png'
+                
+<MainScreen> 
+		fillfood: fillfood
+		fillwater: fillwater
+		foodStatus: foodStatus
+		waterStatus: waterStatus
+
+       			
+		FloatLayout:
+				canvas:
+						Color:
+								rgba: .62,.38,.38,1
+						Rectangle:
+								pos: self.pos
+								size: self.size
+     			
+            	Label:
+        				text: 'Home'
+        				size_hint: .8, 1/5
+						pos_hint: {"x":.1, "top": 1.05}
+						font_size: 35
+						
+				SmoothButton: 
+						id: fillfood
+						text: 'Fill Food' 
+						bold: True
+						size_hint: .45, .25
+						pos_hint: {"x":.525, "top": .8}
+						on_press: root.btnff()
+												
+				SmoothButton: 
+						id: fillwater
+						text: 'Fill Water' 
+						bold: True
+						size_hint: .45, .25
+						pos_hint: {"x":.025, "top": .8}		
+						on_press: root.btnfw()
+
+				StrokeButton:
+						size_hint: 1/4, 1/8
+						pos_hint: {"x":.5}
+						on_press: 
+								root.manager.current = 'settings'
+								root.manager.transition.direction = 'left'
+						GridLayout:
+								cols: 1
+								pos: self.parent.pos
+								size: self.parent.size	
+								Image:
+										source: 'Settings.png'
+										size_hint: (1, .75)
+								Label:
+										text: 'Settings'
+										pos_hint: {"x":1, "top":.125}
+										
+				StrokeButton:
+						size_hint: 1/4, 1/8
+						pos_hint: {"x":.25}
+						on_press: 
+								root.manager.current = 'parameter'
+								root.manager.transition.direction = 'left'
+						GridLayout:
+								cols: 1
+								pos: self.parent.pos
+								size: self.parent.size	
+								Image:
+										source: 'FoodIcon.png'
+										size_hint: (1, .75)
+								
+								Label:
+										text: 'Configure'
+										pos_hint: {"x":1, "top":.125}
+										
+				StrokeButton:
+						size_hint: 1/4, 1/8
+						GridLayout:
+								cols: 1
+								pos: self.parent.pos
+								size: self.parent.size	
+								Image:
+										source: 'Home.png'
+										size_hint: (1, .75)
+										pos_hint: {"x":1, "top":.25}	
+								Label:
+										text: 'Home'
+										pos_hint: {"x":1, "top":.125}	
+
+				StrokeButton:
+						size_hint: 1/4, 1/8
+						pos_hint: {"x":.75}
+						on_press: 
+								root.manager.current = 'contact'
+								root.manager.transition.direction = 'left'
+						GridLayout:
+								cols: 1
+								pos: self.parent.pos
+								size: self.parent.size
+								Image:
+										source: 'Phone.png'
+										size_hint: (1, .75)
+										pos_hint: {"x":1, "top":.25}								
+								Label:
+										text: 'Contact'
+										pos_hint: {"x":1, "top":.125}	
+						
+				FancyLabel:
+        				text: "Food Level"
+        				size_hint: .4, 1/10
+						pos_hint: {"x":.05, "top": .4}
+						
+				RootWidget:
+        				id: foodStatus
+						size_hint: .4, 1/10
+						pos_hint: {"x":.05, "top": .3}
+						
+				FancyLabel:
+        				text: "Water Level"
+        				size_hint: .4, 1/10
+						pos_hint: {"x":.55, "top": .4}
+						
+				RootWidget:
+        				id: waterStatus
+						size_hint: .4, 1/10
+						pos_hint: {"x":.55, "top": .3}
+
+			
+						
+<SettingsScreen>
+		FloatLayout:
+				canvas:
+						Color:
+								rgba: .62,.38,.38,1
+						Rectangle:
+								pos: self.pos
+								size: self.size
+				
+				Label:
+        				text: 'Settings'
+        				size_hint: .8, 1/5
+						pos_hint: {"x":.1, "top": .95}
+						font_size: 35
+				
+				
+				SmoothButton: 
+						text: 'Current Configuration' 
+						size_hint: .8, 1/5
+						pos_hint: {"x":.1, "top": .75}
+						on_press: 
+								root.manager.current = 'currentConfig'
+								root.manager.transition.direction = 'down'
+								
+				SmoothButton: 
+						text: 'Configure Amounts' 
+						size_hint: .8, 1/5
+						pos_hint: {"x":.1, "top": .45}
+						on_press: 
+								root.manager.current = 'amount'
+								root.manager.transition.direction = 'down'
+
+				StrokeButton:
+						size_hint: 1/4, 1/8
+						pos_hint: {"x":.5}
+						GridLayout:
+								cols: 1
+								pos: self.parent.pos
+								size: self.parent.size	
+								Image:
+										source: 'Settings.png'
+										size_hint: (1, .75)
+								Label:
+										text: 'Settings'
+										pos_hint: {"x":1, "top":.125}
+										
+				StrokeButton:
+						size_hint: 1/4, 1/8
+						pos_hint: {"x":.25}
+						on_press: 
+								root.manager.current = 'parameter'
+								root.manager.transition.direction = 'left'
+						GridLayout:
+								cols: 1
+								pos: self.parent.pos
+								size: self.parent.size	
+								Image:
+										source: 'FoodIcon.png'
+										size_hint: (1, .75)
+								Label:
+										text: 'Configure'
+										pos_hint: {"x":1, "top":.125}
+										
+				StrokeButton:
+						size_hint: 1/4, 1/8
+						on_press: 
+								root.manager.current = 'main'
+								root.manager.transition.direction = 'right'
+						GridLayout:
+								cols: 1
+								pos: self.parent.pos
+								size: self.parent.size	
+								Image:
+										source: 'Home.png'
+										size_hint: (1, .75)
+								Label:
+										text: 'Home'
+										pos_hint: {"x":1, "top":.125}
+										
+				StrokeButton:
+						size_hint: 1/4, 1/8
+						pos_hint: {"x":.75}
+						on_press: 
+								root.manager.current = 'contact'
+								root.manager.transition.direction = 'left'
+						GridLayout:
+								cols: 1
+								pos: self.parent.pos
+								size: self.parent.size	
+								Image:
+										source: 'Phone.png'
+										size_hint: (1, .75)
+										pos_hint: {"x":1, "top":.25}
+								Label:
+										text: 'Contact'
+										pos_hint: {"x":1, "top":.125}
+
+
+<ParameterScreen>
+		food1: time1
+		food2: time2
+		food3: time3
+		food4: time4
+		water1: time5
+		water2: time6
+		water3: time7
+		water4: time8
+		importTime: submit
+
+		FloatLayout:
+				canvas:
+						Color:
+								rgba: .62,.38,.38,1
+						Rectangle:
+								pos: self.pos
+								size: self.size
+				
+				Label:
+        				text: 'Set Parameters'
+        				size_hint: .8, 1/5
+						pos_hint: {"x":.1, "top": 1.05}
+						font_size: 35
+									
+				Label:
+						text: 'Feeding Times'
+						pos_hint: {"x": .05, "top":.925}
+						font_size: 16
+						size_hint: 0.4, 0.1
+						
+				Label:
+						text: 'Drinking Times'
+						pos_hint: {"x": .55, "top":.925}
+						font_size: 16
+						size_hint: 0.4, 0.1
+								
+				TextInput: 
+						id: time1
+						hint_text:'Enter Time 1, ex: 700AM'
+						multiline: False
+						font_size: 10
+						pos_hint: {"x": 0.05, "top":.85} 
+						size_hint: 0.4, 0.1
+						
+				TextInput: 
+						id: time2
+						hint_text:'OPTIONAL: Enter Time 2, ex: 700AM'
+						multiline: False
+						font_size: 10
+						pos_hint: {"x": 0.05, "top":.7} 
+						size_hint: 0.4, 0.1
+						
+				TextInput: 
+						id: time3
+						hint_text:'OPTIONAL: Enter Time 3, ex: 700AM'
+						multiline: False
+						font_size: 10
+						pos_hint: {"x": 0.05, "top":.55} 
+						size_hint: 0.4, 0.1
+						
+				TextInput: 
+						id: time4
+						hint_text:'OPTIONAL: Enter Time 4, ex: 700AM'
+						multiline: False
+						font_size: 10
+						pos_hint: {"x": 0.05, "top":.4} 
+						size_hint: 0.4, 0.1
+				
+				
+				TextInput: 
+						id: time5
+						hint_text:'Enter Time 1, ex: 700AM'
+						multiline: False
+						font_size: 10
+						pos_hint: {"x": 0.55, "top":.85} 
+						size_hint: 0.4, 0.1
+						
+				TextInput: 
+						id: time6
+						hint_text:'OPTIONAL: Enter Time 2, ex: 700AM'
+						multiline: False
+						font_size: 10
+						pos_hint: {"x": 0.55, "top":.7} 
+						size_hint: 0.4, 0.1
+						
+				TextInput: 
+						id: time7
+						hint_text:'OPTIONAL: Enter Time 3, ex: 700AM'
+						multiline: False
+						font_size: 10
+						pos_hint: {"x": 0.55, "top":.55} 
+						size_hint: 0.4, 0.1
+						
+				TextInput: 
+						id: time8
+						hint_text:'OPTIONAL: Enter Time 4, ex: 700AM'
+						multiline: False
+						font_size: 10
+						pos_hint: {"x": 0.55, "top":.4} 
+						size_hint: 0.4, 0.1
+				
+				Button:	
+						id: submit
+						background_color: 0,0,0,0
+						background_normal: ''
+						text: "Submit"
+						pos_hint: {"x": 0.25, "top": 0.275} 
+						size_hint: 0.5, 0.125
+						on_press: root.inputParameters()
+						
+						canvas.before:
+								Color:
+										rgba: (.149,.05,.05,.51)  # visual feedback of press
+								RoundedRectangle:
+										pos: self.pos
+										size: self.size
+										radius: [20,20,20,20]					
+
+				StrokeButton:
+						size_hint: 1/4, 1/8
+						pos_hint: {"x":.5}
+						on_press: 
+								root.manager.current = 'settings'
+								root.manager.transition.direction = 'left'
+						GridLayout:
+								cols: 1
+								pos: self.parent.pos
+								size: self.parent.size	
+								Image:
+										source: 'Settings.png'
+										size_hint: (1, .75)
+								Label:
+										text: 'Settings'
+										pos_hint: {"x":1, "top":.125}
+										
+				StrokeButton:
+						size_hint: 1/4, 1/8
+						pos_hint: {"x":.25}
+						GridLayout:
+								cols: 1
+								pos: self.parent.pos
+								size: self.parent.size	
+								Image:
+										source: 'FoodIcon.png'
+										size_hint: (1, .75)
+								Label:
+										text: 'Configure'
+										pos_hint: {"x":1, "top":.125}
+										
+				StrokeButton:
+						size_hint: 1/4, 1/8
+						on_press: 
+								root.manager.current = 'main'
+								root.manager.transition.direction = 'right'
+						GridLayout:
+								cols: 1
+								pos: self.parent.pos
+								size: self.parent.size	
+								Image:
+										source: 'Home.png'
+										size_hint: (1, .75)
+								Label:
+										text: 'Home'
+										pos_hint: {"x":1, "top":.125}
+										
+				StrokeButton:
+						size_hint: 1/4, 1/8
+						pos_hint: {"x":.75}
+						on_press: 
+								root.manager.current = 'contact'
+								root.manager.transition.direction = 'left'
+						GridLayout:
+								cols: 1
+								pos: self.parent.pos
+								size: self.parent.size	
+								Image:
+										source: 'Phone.png'
+										size_hint: (1, .75)
+										pos_hint: {"x":1, "top":.25}
+								Label:
+										text: 'Contact'
+										pos_hint: {"x":1, "top":.125}
+				
+<ContactScreen>
+		FloatLayout:
+				canvas:
+						Color:
+								rgba: .62,.38,.38,1
+						Rectangle:
+								pos: self.pos
+								size: self.size
+		
+				Label:
+        				text: "ANIM.IO"
+        				font_size: 35
+        				font_name: 'Arial'
+        				bold: True
+        				size_hint: .25, .2
+        				pos_hint: {"x": .25, "top": .95}
+        				
+
+                Image:
+                        source: 'FoodIcon.png'
+						size_hint: (.25, .25) 
+						pos_hint: {"x": .65, "top": 1} 
+            				
+            				
+                FancyLabel:
+                        size_hint: .975, .5
+        				pos_hint: {"x": .0125, "top": .7}
+                        text: "For any questions regarding this product\nplease contact customer support:\n\nMatt Krause: fx9575@wayne.edu\n\nJose Orozco: jose.orozco@wayne.edu"	
+				
+				
+				StrokeButton:
+						size_hint: 1/4, 1/8
+						pos_hint: {"x":.5}
+						on_press: 
+								root.manager.current = 'settings'
+								root.manager.transition.direction = 'left'
+						GridLayout:
+								cols: 1
+								pos: self.parent.pos
+								size: self.parent.size	
+								Image:
+										source: 'Settings.png'
+										size_hint: (1, .75)
+								Label:
+										text: 'Settings'
+										pos_hint: {"x":1, "top":.125}
+										
+				StrokeButton:
+						size_hint: 1/4, 1/8
+						pos_hint: {"x":.25}
+						on_press: 
+								root.manager.current = 'parameter'
+								root.manager.transition.direction = 'left'
+						GridLayout:
+								cols: 1
+								pos: self.parent.pos
+								size: self.parent.size	
+								Image:
+										source: 'FoodIcon.png'
+										size_hint: (1, .75)
+								Label:
+										text: 'Configure'
+										pos_hint: {"x":1, "top":.125}
+										
+				StrokeButton:
+						size_hint: 1/4, 1/8
+						on_press: 
+								root.manager.current = 'main'
+								root.manager.transition.direction = 'right'
+						GridLayout:
+								cols: 1
+								pos: self.parent.pos
+								size: self.parent.size	
+								Image:
+										source: 'Home.png'
+										size_hint: (1, .75)
+								Label:
+										text: 'Home'
+										pos_hint: {"x":1, "top":.125}
+										
+				StrokeButton:
+						size_hint: 1/4, 1/8
+						pos_hint: {"x":.75}
+						GridLayout:
+								cols: 1
+								pos: self.parent.pos
+								size: self.parent.size	
+								Image:
+										source: 'Phone.png'
+										size_hint: (1, .75)
+										pos_hint: {"x":1, "top":.25}
+								Label:
+										text: 'Contact'
+										pos_hint: {"x":1, "top":.125}
+										
+<CurrentConfigScreen>
+        time1: time1
+		time2: time2
+		time3: time3
+		time4: time4
+		time5: time5
+		time6: time6
+		time7: time7
+		time8: time8
+
+		FloatLayout:
+				canvas:
+						Color:
+								rgba: .62,.38,.38,1
+						Rectangle:
+								pos: self.pos
+								size: self.size
+            					
+				Label:
+						text: 'Feeding Times'
+						bold: True
+						pos_hint: {"x": .05, "top":.95}
+						font_size: 14
+						size_hint: 0.4, 0.1
+						canvas.before:
+                				Color:
+                						rgba: (1,1,1,1)  
+                				Line:
+                						rectangle: (self.pos[0],self.pos[1], self.size[0], self.size[1])
+                    				    width: 1.2
+						
+				Label:
+						text: 'Drinking Times'
+						bold: True
+						pos_hint: {"x": .55, "top":.95}
+						font_size: 14
+						size_hint: 0.4, 0.1
+						canvas.before:
+                				Color:
+                						rgba: (1,1,1,1)  
+                				Line:
+                						rectangle: (self.pos[0],self.pos[1], self.size[0], self.size[1])
+                    				    width: 1.2
+				
+				StrokeButton:
+						size_hint: .9, 1/5
+						pos_hint: {"x": .05}
+						text: "Go Back"
+						on_press: 
+								root.manager.current = 'settings'
+								root.manager.transition.direction = 'up'
+								
+                FancyLabel:
+                        id: time1
+                        text: 'Not Programmed'
+                        pos_hint: {"x": .05, "top":.80}
+
+										
+				FancyLabel:
+                        id: time2
+                        text: 'Not Programmed'
+                        pos_hint: {"x": .05, "top":.65}
+						
+				
+				FancyLabel:
+                        id: time3
+                        text: 'Not Programmed'
+                        pos_hint: {"x": .05, "top":.50}
+						
+				
+				FancyLabel:
+                        id: time4
+                        text: 'Not Programmed'
+                        pos_hint: {"x": .05, "top":.35}
+						
+				
+				FancyLabel:
+                        id: time5
+                        text: 'Not Programmed'
+                        pos_hint: {"x": .55, "top":.80}
+						
+						
+				FancyLabel:
+                        id: time6
+                        text: 'Not Programmed'
+                        pos_hint: {"x": .55, "top":.65}
+						
+						
+				FancyLabel:
+                        id: time7
+                        text: 'Not Programmed'
+                        pos_hint: {"x": .55, "top":.50}
+						
+						
+				FancyLabel:
+                        id: time8
+                        text: 'Not Programmed'
+                        pos_hint: {"x": .55, "top":.35}
+						
+
+<AmountScreen>
+        foodSlider:foodSlider
+        waterSlider:waterSlider
+        submit:submit
+
+        FloatLayout:
+				canvas:
+						Color:
+								rgba: .62,.38,.38,1
+						Rectangle:
+								pos: self.pos
+								size: self.size        				
+        				
+        		StrokeButton:
+						size_hint: .9, 1/5
+						pos_hint: {"x": .05}
+						text: "Go Back"
+						on_press: 
+								root.manager.current = 'settings'
+								root.manager.transition.direction = 'up'
+								
+				TheSlide:
+        				id: foodSlider
+        				pos_hint: {"x": .20, "top": .85}
+        				
+				FancyLabel:
+        				text: "Food Amount"
+        				pos_hint: {"x": .05, "top": .95}
+        				
+				Label:
+                        text: str(foodSlider.value*10) + "%"
+                        pos_hint: {"x": -.35, "top": 1}				
+				
+				TheSlide:
+        				id: waterSlider
+        				pos_hint: {"x": .70, "top": .85}
+        				
+				FancyLabel:
+        				text: "Water Amount"
+        				pos_hint: {"x": .55, "top": .95}
+        		
+        		Label:
+                        text: str(waterSlider.value*10) + "%"
+                        pos_hint: {"x": .35, "top": 1}		
+        				                				
+                Button:	
+						id: submit
+						background_color: 0,0,0,0
+						background_normal: ''
+						text: "Submit"
+						pos_hint: {"x": 0.35, "top": 0.3} 
+						size_hint: 0.3, 0.075
+						on_press: root.inputAmount()
+						
+						canvas.before:
+								Color:
+										rgba: (.149,.05,.05,.51)  # visual feedback of press
+								RoundedRectangle:
+										pos: self.pos
+										size: self.size
+										radius: [20,20,20,20]				                				
+                				
+                
