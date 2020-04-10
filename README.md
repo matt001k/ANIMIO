@@ -1,2 +1,2 @@
 # ANIMIO
-IOT Animal Feeder with APP Control
+IOT Animal Feeder with Android App Control
