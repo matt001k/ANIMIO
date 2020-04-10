@@ -1,3 +1,0 @@
-title=ANIMAPP
-author=Matthew Krause
-orientation=portrait
