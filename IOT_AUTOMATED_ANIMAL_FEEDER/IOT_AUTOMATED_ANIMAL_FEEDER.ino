@@ -12,10 +12,11 @@
 #define HX711WATER_DAT 12
 #define HX711FOOD_CLK 4
 #define HX711FOOD_DAT 13
-#define VMA406_RELAY_CONTROL 12
+#define VMA406_SIGNAL 0
 #define AIN1 2
 #define AIN2 15
 #define PWMA 5
+
 
 /*
  * EEPROM Location Definitions:
@@ -57,12 +58,12 @@ int timeCheck[8];           //used to determine when the animal will get fed(in 
 int timeOffset = 0;         //used to determine the offset from unix time and OS time of the device connecting, value stored in EEPROM mem[20]
 float setFood = 0;            //weights set for food by user
 float setWater = 0;           //weights set for water by user
-float maxFood = .16;        //max weight for food in bowl //.29 is the full bowl weight but due to clogging, it is not used 
-float maxWater = .55;       //max weight for water in bowl
+float maxFood = .11;        //max weight for food in bowl //.29 is the full bowl weight but due to clogging, it is not used 
+float maxWater = .4;       //max weight for water in bowl
 float currFood = 0;         //current weight of food
 float currWater = 0;        //current weight of water
-float foodOffset = -.73;    //food weight offset to zero
-float waterOffset = .6;     //water weight offset to zero
+float foodOffset = -.81;    //food weight offset to zero
+float waterOffset = .48;     //water weight offset to zero
 float foodCali = 103250.5;  //food calibration value
 float waterCali = 128650.5; //water calibration value
 
@@ -102,6 +103,10 @@ WiFiManager wifiManager;
 void setup(void)
 {
   int j = 0;
+
+  //define relay pin to be pulled low
+  pinMode(VMA406_SIGNAL, OUTPUT);
+  digitalWrite(VMA406_SIGNAL, LOW);
 
   //begin serial monitor and EEPROM
   Serial.begin(115200);
@@ -504,7 +509,7 @@ void fillFood()
     Serial.println(currFood);
   }
   analogWrite(PWMA, 0);
-    scaleFood.power_down();
+  scaleFood.power_down();
 }
 
 
@@ -512,6 +517,16 @@ void fillFood()
 void fillWater()
 {
   Serial.println("Fill Das Water!");
+  delay(1000);
+  scaleWater.power_up();
+  while(currWater < (maxWater*(setWater/100)))
+  {  
+    digitalWrite(VMA406_SIGNAL, HIGH);
+    currWater = scaleWater.get_units() + waterOffset; 
+    Serial.println(currWater);
+  }
+  digitalWrite(VMA406_SIGNAL, LOW);
+  scaleWater.power_down();
 }
 
 
