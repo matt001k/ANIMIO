@@ -1,3 +1,13 @@
+/**
+ * FILE: IOT_AUTOMATED_ANIMAL_FEEDER.ini
+ *
+ * BRIEF: code for the initial prototype of the ANIMIO IOT animal feeder
+ *        
+ * AUTHOR: Matthew Krause
+ * 
+ * VERSION: 1.0.0 - 4/14/20
+ */
+
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
 #include <ESP8266WebServer.h>
@@ -26,6 +36,8 @@
  * MEM[25] = USED TO DETERMINE IF THE MCU HAS CONNECTED WITH THE APP YET AND SET A CURRENT OFFSET FOR TIME
  * MEM[50] = USER PROGRAMMED AMOUNT OF FOOD IN THE BOWL
  * MEM[55] = USER PROGRAMMED AMOUNT OF WATER IN THE BOWL
+ * MEM[100] = FOOD OFFSET VALUES
+ * MEM[105] = WATER OFFSET VALUES
  */
 
 
@@ -47,6 +59,7 @@ void setSystemTime(const char* command);
 void setWeights(const char* command);
 void convToWeightArr();
 void getWeights();
+void zeroScale();
 
 
 
@@ -58,14 +71,14 @@ int timeCheck[8];           //used to determine when the animal will get fed(in 
 int timeOffset = 0;         //used to determine the offset from unix time and OS time of the device connecting, value stored in EEPROM mem[20]
 float setFood = 0;            //weights set for food by user
 float setWater = 0;           //weights set for water by user
-float maxFood = .11;        //max weight for food in bowl //.29 is the full bowl weight but due to clogging, it is not used 
-float maxWater = .4;       //max weight for water in bowl
+float maxFood = .1;        //max weight for food in bowl //.29 is the full bowl weight but due to clogging, it is not used 
+float maxWater = .25;       //max weight for water in bowl
 float currFood = 0;         //current weight of food
 float currWater = 0;        //current weight of water
-float foodOffset = -.81;    //food weight offset to zero
-float waterOffset = .48;     //water weight offset to zero
-float foodCali = 103250.5;  //food calibration value
-float waterCali = 128650.5; //water calibration value
+float foodOffset = 0;    //food weight offset to zero
+float waterOffset = 0;     //water weight offset to zero
+float foodCali = 138178.50;  //food calibration value
+float waterCali = 141779.5; //water calibration value
 
 //HX711 definitions
 HX711 scaleFood; 
@@ -198,6 +211,8 @@ void setup(void)
   scaleWater.begin(HX711WATER_DAT, HX711WATER_CLK);
   scaleFood.set_scale(foodCali);
   scaleWater.set_scale(waterCali);
+  foodOffset = EEPROM.read(100)/100;
+  waterOffset = EEPROM.read(105)/100;
   getWeights();
 
 
@@ -247,7 +262,6 @@ void loop()
     {
       NTPprinttime();
       timeFeedDrink();
-      getWeights();
     }
     // wait a second before asking for the time again
     delay(1000);
@@ -431,6 +445,7 @@ void handleBody()
   //if the current command contains get time(used to get the current weights at this time) send back the current weights
   if(strstr(command, "get_Time"))
   {
+    getWeights();
     server.send(200, "text/plain", String(currFood) + "," + String(currWater));
     return;
   }
@@ -467,6 +482,11 @@ int functionSelector(const char* command)
   if (strstr(command, "Quantities") != NULL)
   {
     setWeights(command);
+    return 0;
+  }
+  if (strstr(command, "Zero Scale") != NULL)
+  {
+    zeroScale();
     return 0;
   }
   else
@@ -749,8 +769,11 @@ void getWeights()
   scaleWater.power_up();
 
   //get the average of 3 units for the food offset
-  currFood = scaleFood.get_units(3) + foodOffset; 
-  currWater = scaleWater.get_units(3) + waterOffset; 
+  currFood = scaleFood.get_units(3);
+  currWater = scaleWater.get_units(3); 
+
+  currFood = currFood + foodOffset;
+  currWater = currWater + foodOffset;
 
   Serial.print("Current Food Weight: ");
   Serial.println(currFood, 3);
@@ -759,4 +782,38 @@ void getWeights()
   
   scaleFood.power_down();
   scaleWater.power_down();
+}
+
+
+
+//used to zero the loadcells whenever they are moved, store new foodOffset/waterOffset values in registers explained above
+void zeroScale()
+{
+  int newFoodOffset = 0;
+  int newWaterOffset = 0;
+  
+  //gets the current weights to set the new offset values and tare the scales
+  getWeights();
+
+  scaleFood.power_up();
+  scaleWater.power_up();
+
+  scaleFood.tare();
+  scaleWater.tare();
+
+  scaleFood.power_down();
+  scaleWater.power_down();
+
+  newFoodOffset = currFood*100;
+  newWaterOffset = currWater*100;
+
+  EEPROM.write(100, newFoodOffset);
+  EEPROM.write(105, newWaterOffset);
+  EEPROM.commit();
+
+  foodOffset = 0;
+  waterOffset = 0;
+
+  getWeights();
+  
 }
