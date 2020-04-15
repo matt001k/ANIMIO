@@ -27,8 +27,8 @@ command = ""
 errorHandle = 0
 currFood = 0.0
 currWater = 0.0
-maxFood = .16 #.29 is the actual value
-maxWater = .55
+maxFood = .1 #adjust this depending on what the max food level will be
+maxWater = .25 #adjust this depending on what the planned max water level will be
 
 url = "http://10.0.0.48:80/body"
 payload = ""
@@ -87,8 +87,13 @@ def comFun(action):
             if(currFood > 1):
                 currFood = 1
             currFood = currFood * 100  #used because progress bar is 0 - 100
-            
-            currWater = float(waterList) / maxWater
+              
+            #used incase the output of foodlist is negative and has an extra integer before
+            try:
+                currWater = (float(waterList)) / maxWater
+            except:
+                waterList = ESPResponse[7:10]
+                currWater = float(waterList) / maxWater
             if(currWater > 1):
                 currWater = 1
             currWater = currWater * 100
@@ -124,7 +129,9 @@ class Alert(Popup):
         ok_button.bind(on_press=popup.dismiss)
         popup.open()
         
+       
 
+        
 
 #start of main classes for the app
 class MainScreen(Screen):
@@ -150,6 +157,11 @@ class MainScreen(Screen):
 
 
 class SettingsScreen(Screen):
+    
+    #used to calibrate load cells when there is nothing in them
+    def promptWarn(self):
+        Alert("WARNING", "Reading Will Not Be Correct If Material In Bowls")
+        comFun("Zero Scale")
     pass
 
 

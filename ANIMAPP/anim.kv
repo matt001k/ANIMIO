@@ -83,7 +83,7 @@
 						text: 'Fill Food' 
 						bold: True
 						size_hint: .45, .25
-						pos_hint: {"x":.525, "top": .8}
+						pos_hint: {"x":.025, "top": .8}
 						on_press: root.btnff()
 												
 				SmoothButton: 
@@ -91,7 +91,7 @@
 						text: 'Fill Water' 
 						bold: True
 						size_hint: .45, .25
-						pos_hint: {"x":.025, "top": .8}		
+						pos_hint: {"x":.525, "top": .8}		
 						on_press: root.btnfw()
 
 				StrokeButton:
@@ -195,14 +195,14 @@
 				Label:
         				text: 'Settings'
         				size_hint: .8, 1/5
-						pos_hint: {"x":.1, "top": .95}
+						pos_hint: {"x":.1, "top": 1}
 						font_size: 35
 				
 				
 				SmoothButton: 
 						text: 'Current Configuration' 
 						size_hint: .8, 1/5
-						pos_hint: {"x":.1, "top": .75}
+						pos_hint: {"x":.1, "top": .8}
 						on_press: 
 								root.manager.current = 'currentConfig'
 								root.manager.transition.direction = 'down'
@@ -210,10 +210,17 @@
 				SmoothButton: 
 						text: 'Configure Amounts' 
 						size_hint: .8, 1/5
-						pos_hint: {"x":.1, "top": .45}
+						pos_hint: {"x":.1, "top": .575}
 						on_press: 
 								root.manager.current = 'amount'
 								root.manager.transition.direction = 'down'
+
+				SmoothButton:
+						text: 'Zero Scale' 
+						size_hint: .8, 1/5
+						pos_hint: {"x":.1, "top": .35}
+						on_press: 
+								root.promptWarn()
 
 				StrokeButton:
 						size_hint: 1/4, 1/8
