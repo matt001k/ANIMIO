@@ -1,14 +1,14 @@
 # ANIMIO
 IOT Animal Feeder with Android App Control
 
-Detailed description of your work including design with detailed schematic diagram and flow charts for software. (15 Points)
-The IOT Animal Feeder is currently a prototype targeted toward typical American Homes of families on the go. It includes a sleekly designed housing. The components for the housing were all 3D printed. Electrical components are all development boards/modules, further pursuing of this project would be implementation of a full Printed Circuit Board. The firmware development on the MCU was done through Arduino. To tie everything together, an application was created using the Kivy cross-platform Python framework which gives the ability of Android and IOS users to access the application. The design process, assembly, and software/firmware explanation will be included within the detailed description.
+Detailed description of your work including design with detailed schematic diagram and flow charts for software.
+The IOT Animal Feeder is currently a prototype targeted toward typical American Homes of families on the go. It includes a sleek designed housing. The components for the housing were all 3D printed. Electrical components are all development boards/modules, further pursuing of this project would be implementation of a full Printed Circuit Board. The firmware development on the MCU was done through Arduino. To tie everything together, an application was created using the Kivy cross-platform Python framework which gives the ability of Android and IOS users to access the application. The design process, assembly, and software/firmware explanation will be included within the detailed description.
 
 ## Design Process
-The success of any project, regardless of scale, is usually decided during the design process. The design for the prototype was inspired for smaller animals, such as a domestic cat. When considering the actual product, different sizes may be possible, or a larger product to accommodate for larger animals. In Figure \ref{fig:design1}, the finalized concept of the capstone project is shown. 
+The success of any project, regardless of scale, is usually decided during the design process. The design for the prototype was inspired for smaller animals, such as a domestic cat. When considering the actual product, different sizes may be possible, or a larger product to accommodate for larger animals. Shown below is the finalized prototype of the capstone project .
 
-![GitHub Logo](/images/design2.jpg)
-Format: ![Alt Text]
+![design2](https://user-images.githubusercontent.com/61891357/79497603-f574a980-7ff5-11ea-92b6-f0f3a15ea87c.jpg)
+
 
 
 The system works by storing programmed time parameters of when the animal will be fed and watered throughout the day. With these parameters it will determine if the bowls need more food/water or is there is enough already within the bowl. Feedback to the controller, in order to determine the food and water contents, are done so by weight. When the weight is determined to be at a specific level(programmed again by the user), the system will stop dispensing food and water. All user interaction is interfaced through the application. There are \textit{up to} four programmable times for feeding \textit{and} watering the animal. The user also has the ability to feed/water the animal NOW. This is useful in case the animal should be fed without having to reprogram feed/water times and change settings around. 
