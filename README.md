@@ -28,7 +28,7 @@ Next, will be on the food dispensing mechanism:
 
 ![](https://github.com/matt001k/ANIMIO/blob/master/Images/Food%20Dispensor%20Front.PNG)![](https://github.com/matt001k/ANIMIO/blob/master/Images/Food%20Dispensor.PNG)
 
-This mechanism combines a lot of components. From the rear view, the motor, with shaft can be seen. The motor holder was designed to the motor's dimensions to hold it during operation, it was secured using M3 bolts. The shaft was designed to fit within the housing of the dispenser. This was all secured with epoxy From the front view, the impeller, used to move the food, is visible.
+This mechanism combines a lot of components. From the rear view, the motor, with shaft can be seen. The motor holder was designed to the motor's dimensions to hold it during operation, it was secured using M3 bolts. The shaft was designed to fit within the housing of the dispenser. This was all secured with epoxy. From the front view, the impeller, used to move the food, is visible.
 
 ![](https://github.com/matt001k/ANIMIO/blob/master/Images/Imp.PNG)
 
