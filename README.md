@@ -7,193 +7,87 @@ The IOT Animal Feeder is currently a prototype targeted toward typical American 
 ## Design Process
 The success of any project, regardless of scale, is usually decided during the design process. The design for the prototype was inspired for smaller animals, such as a domestic cat. When considering the actual product, different sizes may be possible, or a larger product to accommodate for larger animals. Shown below is the finalized prototype of the capstone project .
 
-![design2](https://user-images.githubusercontent.com/61891357/79497603-f574a980-7ff5-11ea-92b6-f0f3a15ea87c.jpg)
+![](https://github.com/matt001k/ANIMIO/blob/master/Images/design2.jpg)
 
 
 
 The system works by storing programmed time parameters of when the animal will be fed and watered throughout the day. With these parameters it will determine if the bowls need more food/water or is there is enough already within the bowl. Feedback to the controller, in order to determine the food and water contents, are done so by weight. When the weight is determined to be at a specific level(programmed again by the user), the system will stop dispensing food and water. All user interaction is interfaced through the application. There are \textit{up to} four programmable times for feeding \textit{and} watering the animal. The user also has the ability to feed/water the animal NOW. This is useful in case the animal should be fed without having to reprogram feed/water times and change settings around. 
 
-\subsection*{Mechanical Design}
-From a mechanical standpoint, the design was all done using the 3D CAD software \textbf{Fusion 360}. Further details of the more significant components will be explained. 
+## Mechanical Design
+From a mechanical standpoint, the design was all done using the 3D CAD software **Fusion 360**. Further details of the more significant components will be explained. 
 
 Discussion will begin on the base:
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale=.3333]{Pictures/6_Det/base.PNG}
-\caption{3D Base Model.}
-\label{fig:base}
-\end{figure}
+![](https://github.com/matt001k/ANIMIO/blob/master/Images/Base.PNG)
 
-The base was designed to hold all of the electrical components. Each board's mounting holes were taken into consideration, so they may be mounted onto the base with appropriate hardware(self-tapping screws were used). There are through holes to support two load cells used for weight feedback of the bowls, these were secured using M5 bolts. On top of the load cells, are another 3D printed component to hold the bowls, this was secured onto the load cell using M4 Bolts. On the back of the base, a small compartment was used to hold a DC Male Jack Connector for incoming power to the system, this can be seen in figure \ref{fig:jack}
+The base was designed to hold all of the electrical components. Each board's mounting holes were taken into consideration, so they may be mounted onto the base with appropriate hardware(self-tapping screws were used). There are through holes to support two load cells used for weight feedback of the bowls, these were secured using M5 bolts. On top of the load cells, are another 3D printed component to hold the bowls, this was secured onto the load cell using M4 Bolts. On the back of the base, a small compartment was used to hold a DC Male Jack Connector for incoming power to the system, this can be seen below.
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale=.333]{Pictures/6_Det/IncomePow.PNG}
-\caption{DC Male Jack Holding Point.}
-\label{fig:jack}
-\end{figure}
+![](https://github.com/matt001k/ANIMIO/blob/master/Images/IncomePow.PNG)
 
 Next, will be on the food dispensing mechanism:
 
-\begin{figure}[H]
-\centering
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[scale=.5]{Pictures/6_Det/Food Dispensor.PNG}
-  \caption{Rear View}
-  \label{fig:sub1}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[scale=.7]{Pictures/6_Det/Food Dispensor Front.PNG}
-  \caption{Front View}
-  \label{fig:sub2}
-\end{subfigure}
-\caption{Food Dispensing Mechanism.}
-\label{fig:food}
-\end{figure}
+![](https://github.com/matt001k/ANIMIO/blob/master/Images/Food%20Dispensor%20Front.PNG)![](https://github.com/matt001k/ANIMIO/blob/master/Images/Food%20Dispensor.PNG)
 
-This mechanism combines a lot of components. From the rear view, the motor, with shaft can be seen. The motor holder was designed to the motor's dimensions to hold it during operation, it was secured using M3 bolts. The shaft was designed to fit within the housing of the dispenser. From the front view, the impeller used to move the food is visible.
+This mechanism combines a lot of components. From the rear view, the motor, with shaft can be seen. The motor holder was designed to the motor's dimensions to hold it during operation, it was secured using M3 bolts. The shaft was designed to fit within the housing of the dispenser. This was all secured with epoxy From the front view, the impeller, used to move the food, is visible.
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale=.333]{Pictures/6_Det/Imp.PNG}
-\caption{Impeller.}
-\label{fig:Imp}
-\end{figure}
+![](https://github.com/matt001k/ANIMIO/blob/master/Images/Imp.PNG)
 
 The water dispensing mechanism will now be explained:
 
-\begin{figure}[H]
-\centering
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[scale=.5]{Pictures/6_Det/Water Dispenser Rear.PNG}
-  \caption{Rear View}
-  \label{fig:sub11}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[scale=.5]{Pictures/6_Det/Water Dispenser Front.PNG}
-    \caption{Front View}
-  \label{fig:sub21}
-\end{subfigure}
-\caption{Water Dispensing Mechanism.}
-\label{fig:water}
-\end{figure}
+![](https://github.com/matt001k/ANIMIO/blob/master/Images/Water%20Dispenser%20Front.PNG)![](https://github.com/matt001k/ANIMIO/blob/master/Images/Water%20Dispenser%20Rear.PNG)
 
-As more clearly seen by the rear view, a solenoid valve is secured into place using the 1.4" NPT fitting design, embedded into a sloped surface. This valve will open, dependant on when the programmed times/user control, in order to fill the food bowl with water. Water will drain from the valve on the sloped surface designed below the valves holding point. 
+As more clearly seen by the rear view, a solenoid valve is secured into place using the 1.4" NPT fitting design, embedded into a sloped surface. This valve will open, dependant on when the programmed times/user control, in order to fill the food bowl with water. Water will drain from the valve on the sloped surface designed below the valves holding point.
 
-\subsection*{Electrical Design}
+## Electrical Design
 Next, the schematics and design explanation for all electrical connections and component. 
 
-First, the components for power distribution are drafted. The CAD drawing for power distribution is located in Figure \ref{fig:cad1}. Incoming power is distributed to the system by a 12 Volt wall plug adapter(\textit{L6R36-120}). This is then stepped down further using a buck converter(\textit{COM15208}) to 5 Volts. The 12 Volts is used to operate a solenoid valve, the buck converted is used to power a motor, the \textit{ROB14450}, a relay as well as the MCU. 3.3 Volt outputs from the MCU are used to power the \textit{HX711} modules. 
+First, the components for power distribution are drafted. The CAD drawing for power distribution is seen below. Incoming power is distributed to the system by a 12 Volt wall plug adapter *(L6R36-120)*. This is then stepped down further using a buck converter *(COM15208)* to 5 Volts. The 12 Volts is used to operate a solenoid valve, the buck converted is used to power a motor, the *ROB14450*, a relay as well as the MCU. 3.3 Volt outputs from the MCU are used to power the *HX711* modules. 
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{Pictures/6_Det/cad1.png}
-\caption{Power Distribution Schematic.}
-\label{fig:cad1}
-\end{figure}
+![](https://github.com/matt001k/ANIMIO/blob/master/Images/cad1.png)
 
-\newpage
-Now, designing the wire diagram of the unit's MCU. The controller of choice for this project is the \textit{ESP8266} by Espressif Systems. This SOC is a WiFi enabled, 32bit RISC processor. The \textit{ESP8266} was chosen due to it's flexibility well documented data that made learning the system easy, and its ability to provide enough processing power to be able to carryout all of the functionalities of the animal feeding system. The schematic of the micro-controller's IO configuration is located in Figure \ref{fig:cad2}.
+Now, designing the wire diagram of the unit's MCU. The controller of choice for this project is the *ESP8266* by Espressif Systems. This SOC is a WiFi enabled, 32bit RISC processor. The *ESP8266* was chosen due to it's flexibility well documented data that made learning the system easy, and its ability to provide enough processing power to be able to carryout all of the functionalities of the animal feeding system.
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{Pictures/6_Det/IO.PNG}
-\caption{Microcontroller Wiring Diagram.}
-\label{fig:cad2}
-\end{figure}
+![](https://github.com/matt001k/ANIMIO/blob/master/Images/IO.PNG)
 
-\newpage
-Next, how the load cells are connected. As can be seen the load cells are connected to the \textit{HX711} modules. These ADC modules are used to amplify the signal from the load cell into a digital signal that can be read from the \textit{ESP8266} in SPI(\textit{Serial Peripheral Interface}).
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{Pictures/6_Det/Load Cells.PNG}
-\caption{Loading Cells Wiring Diagram.}
-\label{fig:cad3}
-\end{figure}
+Next, how the load cells are connected. As can be seen the load cells are connected to the *HX711* modules. These ADC modules are used to amplify the signal from the load cell, convert it into a digital signal that can be read from the *ESP8266* in SPI *(Serial Peripheral Interface)*.
 
-\newpage
-The schematic of solenoid valve(\textit{JFSV00065}), which is used to allow water to flow into the water bowl, is shown in Figure \ref{fig:cad4}. The valve is opened when the relay(\textit{VMA406}) is activated. When a signal is sent from the MCU to the relay, the contact closes and allows 12 Volts to flow through the solenoid. 
+![](https://github.com/matt001k/ANIMIO/blob/master/Images/Load%20Cells.PNG)
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{Pictures/6_Det/Solenoid.PNG}
-\caption{Solenoid Wiring Diagram.}
-\label{fig:cad4}
-\end{figure}
+The schematic of solenoid valve *(JFSV00065)*, which is used to allow water to flow into the water bowl, is shown below. The valve is opened when the relay *(VMA406)* is activated. When a signal is sent from the MCU to the relay, the Normally Open contact closes and allows 12 Volts to flow through the solenoid. 
 
-\newpage
-Finally, the how the electrical motor is wired and controlled. The driver module for the motor(\textit{ROB14450}) utilizes a \textit{TB6612FNG} IC that is used for DC motor control. This chip uses an H-Bridge configuration of MOSFET's to control current flow through the motor. Within the design, the motor is chosen to rotate in one direction, forward, to dispense the food. 
+![](https://github.com/matt001k/ANIMIO/blob/master/Images/Solenoid.PNG)
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{Pictures/6_Det/Motor.PNG}
-\caption{Motor Wiring Diagram.}
-\label{fig:cad5}
-\end{figure}
+Finally, the how the electrical motor is wired and controlled. The driver module for the motor *(ROB14450)* utilizes a *TB6612FNG* IC that is used for DC motor control. This chip uses an H-Bridge configuration of MOSFET's to control current flow through the motor. Within the design, the motor is chosen to rotate in one direction, forward, to dispense the food. 
 
-\subsection*{Firmware}
+![](https://github.com/matt001k/ANIMIO/blob/master/Images/Motor.PNG)
+
+## Firmware
 The firmware was programmed through Arduino. The full code can be viewed at:
 
-\begin{center}
-\href{https://github.com/matt001k/ANIMIO}{ANIMIO GitHub Repository}
- \end{center}
- 
-\subsection*{Application Design}
+[GitHub](https://github.com/matt001k/ANIMIO)
+
+## Application Design
 The application will be described in this section page by page. The Python and Kivy code can be found at:
-\begin{center}
-\href{https://github.com/matt001k/ANIMIO}{ANIMIO GitHub Repository}
-\end{center}
+
+[GitHub](https://github.com/matt001k/ANIMIO)
 
 First, the home page. The home page is consists of 2 main buttons, one to fill the water immediately and one to fill the food immediately. Below each button are the current food and water levels indicated by progress bars. A GET command is used to receive the current values of the load cells, this is used to update the progress bars. The other pages are accessible from the buttons at the bottom.
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale = .8]{Pictures/6_Det/Main Screen.PNG}
-\caption{Main Page.}
-\label{fig:Main}
-\end{figure}
+![](https://github.com/matt001k/ANIMIO/blob/master/Images/Main%20Screen.PNG)
 
 The configuration page is shown next. This page has 4 text boxes on both the feeding times and drinking times, used to program times for the animal feeder to feed/water the animal. The user will input values, it does not have to be 4 for each but rather any combination up to 4 values, and then hit submit. These values are POSTed to the MCU, which stores the values into EEPROM to determine the times. 
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale = .8]{Pictures/6_Det/Configure Screen.PNG}
-\caption{Configure Page.}
-\label{fig:Config}
-\end{figure}
+![](https://github.com/matt001k/ANIMIO/blob/master/Images/Configure%20Screen.PNG)
 
-\newpage
-Moving to the settings page, which consists of three main buttons. The \textit{Current Configuration} button and \textit{Configure Amounts} button will open up the current configuration screen and configure amounts screen respectively. The \textit{Zero Scale} button will zero the load cells on the animal feeder. This button should only be pressed if there are no contents within the bowl as it will make whatever weight on the load cells the referenced zero. This is useful as moving the feeder to different locations causes a possibility of messing up the current zero, depending on the surface it is placed on.
+Moving to the settings page, which consists of three main buttons. The *Current Configuration* button and *Configure Amounts* button will open up the current configuration screen and configure amounts screen respectively. The *Zero Scale* button will zero the load cells on the animal feeder. This button should only be pressed if there are no contents within the bowl as it will make whatever weight on the load cells the referenced zero. This is useful as moving the feeder to different locations causes a possibility of messing up the current zero, depending on the surface it is placed on.
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale = .8]{Pictures/6_Det/Settings Screen.PNG}
-\caption{Settings Page.}
-\label{fig:Settings}
-\end{figure}
+![](https://github.com/matt001k/ANIMIO/blob/master/Images/Settings%20Screen.PNG)
 
-\newpage
-To view the current configuration time of animal feeder, this screen is displayed. When the user inputs time parameters in the configuration page, a text file is written to store the current times. When the current configuration button is pressed, data is extracted from this file and displayed on the application. This provides feedback to the user, just in case the programmed parameters are forgotten.
+To view the current configuration time of animal feeder, this screen is displayed. When the user inputs time parameters in the configuration page, a text file is written to store the current times. When the current configuration button is pressed, data is extracted from the text file, parsed and displayed on the application. This provides feedback to the user, just in case the programmed parameters are forgotten.
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale = .8]{Pictures/6_Det/Current Configuration View.PNG}
-\caption{Current Configuration Page.}
-\label{fig:CurrConfig}
-\end{figure}
+![](https://github.com/matt001k/ANIMIO/blob/master/Images/Current%20Configuration%20View.PNG)
 
-\newpage
 Finally, the last page shown is the configure amount page. This page is used to fill up the respective bowl based upon the percentage the user wants the bowls to be filled. This data is sent to the MCU with the send button and then written to EEPROM to be saved.
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale = .8]{Pictures/6_Det/Configure Weights View.PNG}
-\caption{Configure Amount Page.}
-\label{fig:ConfigWeights}
-\end{figure}
+![](https://github.com/matt001k/ANIMIO/blob/master/Images/Configure%20Weights%20View.PNG)
