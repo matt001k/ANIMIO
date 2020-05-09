@@ -4,7 +4,6 @@ IOT Animal Feeder with Android App Control
 Video Demonstration:
 https://www.youtube.com/watch?v=lcOCRH56Vb8
 
-Detailed description of your work including design with detailed schematic diagram and flow charts for software.
 The IOT Animal Feeder is currently a prototype targeted toward typical American Homes of families on the go. It includes a sleek designed housing. The components for the housing were all 3D printed. Electrical components are all development boards/modules, further pursuing of this project would be implementation of a full Printed Circuit Board. The firmware development on the MCU was done through Arduino. To tie everything together, an application was created using the Kivy cross-platform Python framework which gives the ability of Android and IOS users to access the application. The design process, assembly, and software/firmware explanation will be included within the detailed description.
 
 ## Design Process
